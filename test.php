@@ -1,6 +1,10 @@
 <?php 
 include('./arena.php');
-$test = new ArenaAPi();
+include('./lib/Underscore.php/underscore.php');
+
+$api = new ArenaAPi();
+$my_channel = $api->get_channel($api->get_username());
+
 ?>
 
 <html>
@@ -10,7 +14,7 @@ $test = new ArenaAPi();
 
     <body>
         <div>
-            <?php echo(var_dump($test->get_channel('paperweight'))); ?>
+            <?php echo(var_dump($my_channel)); ?>
         </div>
     </body>
 </html>
