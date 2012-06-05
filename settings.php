@@ -3,6 +3,6 @@
 /* Arena API settings file */
 
 /* Your Username Slug*/
-define('USERNAME', 'paperweight');
+define('USERNAME', '');
 
 ?>
