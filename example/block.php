@@ -9,6 +9,7 @@ $api = new ArenaAPi();
 #get the channel you want to show
 $block = $api->get_block_by_id(635);
 $block_type = key($block);
+
 ?>
 
 <html>
@@ -20,7 +21,7 @@ $block_type = key($block);
     </head>
 
     <body>
-        <div class="block" style="margin: 15px 1$block_typepx;"> 
+        <div class="block" style="margin: 15px;"> 
             <h2 class="block-title">
                 <a href="<?php echo($block[$block_type]['source_url']); ?>"><?php echo($block[$block_type]['title']); ?></a>
             </h2>
