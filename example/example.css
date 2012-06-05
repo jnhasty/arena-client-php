@@ -1,0 +1,25 @@
+/*
+ * Arena Example Site StyleSheet
+ */
+
+body{
+    width: 100%;
+    text-align:center;
+}
+
+#channel{
+    width: 80%;
+    margin:0 auto;
+}
+
+.block-title{
+    font-size: 30px;
+}
+
+.block{
+    text-align:left;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 10px;
+}
+
