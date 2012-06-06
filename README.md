@@ -3,8 +3,6 @@ arena-client-php
 Arena API client written in PHP. For abstracting away all dat work.
 
 
-
-
                                  |
                   \_            /;              _.._
                   `\~--.._     //'            ,(+=\\\\
