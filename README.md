@@ -34,4 +34,3 @@ Arena API client written in PHP. For abstracting away all dat work.
  S$$$$$$$$$$$$$$        ,$$$$$$$$$$$$$'
 (/-(/-(/-(/-(/'      _s$$$$$$$$$$$$$$
                     (/-(/-(/-(/-(/-'
-
