@@ -23,3 +23,14 @@ body{
     padding: 10px;
 }
 
+.block-description{
+    margin: 10px 0px;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.block-meta{
+    margin: 5px 0px;
+    font-size: 18px;
+    font-weight: bold;
+}
