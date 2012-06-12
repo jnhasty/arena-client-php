@@ -3,7 +3,7 @@
 /* Arena API settings file */
 
 /* Your Username Slug (optional) */
-define('USERNAME', '');
+define('MY_USERNAME', '');
 
 /* 
  * Specify the depth of the api calls for channels and blocks. 
