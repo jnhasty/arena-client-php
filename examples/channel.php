@@ -7,10 +7,9 @@ include('../arena.php');
 $api = new ArenaAPi();
 
 #get the channel you want to show
-$page_channel = $api->get_channel('experimental-interface');
+$page_channel = $api->get_channel('paperweight-publishers');
 
-//pretty_print_array($page_channel);
-
+$channel_content = $api->filter_channel_content($page_channel);
 ?>
 
 <html>
@@ -26,12 +25,19 @@ $page_channel = $api->get_channel('experimental-interface');
         <div id="channel">
             <h1 id="channel-title"><?php echo ($page_channel['title']); ?>: An Arena Channel</h1>
             <div id="channel-blocks">
-                <?php __::each($page_channel['blocks'], function($block) { ?>
+                <?php __::each($channel_content, function($block) { ?>
+
+                    <? if (block['type'] == "block") { ?>
                     <div class="block" style="margin: 15px 10px;"> 
                         <h2 class="block-title">
                             <a href="<?php echo($block['source_url']); ?>"><?php echo($block['title']); ?></a>
                         </h2>
-                        <div class="block-meta">By <?php echo($block['username']); ?> on <?php echo($block['readable_updated_at']); ?></div>
+                        
+                            <div class="block-meta">
+                                By <?php echo($block['username']); ?> 
+                                on <?php echo($block['readable_updated_at']); ?>
+                            </div>
+ 
                         <div class="block-content">
                         
                             <?php if ($block['image_display']){ ?>
@@ -43,7 +49,6 @@ $page_channel = $api->get_channel('experimental-interface');
                             <?php } ?>
 
                         </div>
-
                         <?php if (!empty($block['connections'])) { ?>
                         <div id="block-connections">
                         <h2>Connections</h2>
@@ -59,8 +64,7 @@ $page_channel = $api->get_channel('experimental-interface');
                         <?php } ?>  
                 
                 </div><!--end block-->  
-
-                <?php }); ?> 
+                <?php }); // end underscore loop ?> 
             </div>
         </div>
     </body>
