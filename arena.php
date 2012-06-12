@@ -10,7 +10,7 @@
  * + get person who connected the block
  * + templates for list view etc
  * + channels within channels example
- *
+ * + example to find blocks position and neighbors within channel
  */ 
 
 #bring in api settings
