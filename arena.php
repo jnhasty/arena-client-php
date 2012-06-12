@@ -3,7 +3,6 @@
  * TODO 
  * + add try/catch to all methods
  * + get person who connected the block
- * + show other channels a block used in
  * + templates for list view etc
  *
  */ 
@@ -20,11 +19,11 @@ class ArenaAPI {
      */ 
 
     #Global settings from settings.php
-    public $username = USERNAME;
-    public $extended_depth = EXTENDED_DEPTH;
+    var $username = USERNAME;
+    var $extended_depth = EXTENDED_DEPTH;
     
     #the base arena api url
-    public $arena_api_url = 'http://are.na/api/v1/';
+    var $arena_api_url = 'http://are.na/api/v1/';
 
     # USER CHANNEL SPECIFIC FUNCTIONS
     function get_username(){    
@@ -37,7 +36,7 @@ class ArenaAPI {
 
     function get_user_channels(){    
         /* returns all channels for a given user as array */
-        if (!$this->username){
+        if (!$sername){
             throw new Exception('Please provide a username slug in settings.php.');
         }        
         $user_channels_json = file_get_contents($this->arena_api_url.'channels?user='.$this->username);
@@ -56,6 +55,7 @@ class ArenaAPI {
         $channel = json_decode($channel_json, true);
         return $channel;
     }
+
 
     # BLOCK SPECIFIC FUNCTIONS
     function get_blocks_for_channel($channel, $page = Null, $per = Null){    
@@ -90,6 +90,16 @@ class ArenaAPI {
         return $block;
     }
 
+    function get_connections_for_block($block){
+        /* takes a block as an array from an api call OR takes a block id */
+        if (gettype($block) == "array"){
+            return($block['connections']);
+        } else {
+            $requested_block = $this->get_block_by_id($block);
+            $block_key = key($requested_block);
+            return $requested_block[$block_key]['connections'];
+        }
+    }
 
 } # END ARENA API CLASS 
 
