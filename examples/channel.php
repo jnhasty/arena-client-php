@@ -27,7 +27,7 @@ $channel_content = $api->filter_channel_content($page_channel);
             <div id="channel-blocks">
                 <?php __::each($channel_content, function($block) { ?>
 
-                    <? if (block['type'] == "block") { ?>
+                    <? if ($block['type'] == "block") { ?>
                     <div class="block" style="margin: 15px 10px;"> 
                         <h2 class="block-title">
                             <a href="<?php echo($block['source_url']); ?>"><?php echo($block['title']); ?></a>
@@ -63,7 +63,8 @@ $channel_content = $api->filter_channel_content($page_channel);
                         </div>
                         <?php } ?>  
                 
-                </div><!--end block-->  
+                </div>
+                    <?php } ?> <!--end block-->  
                 <?php }); // end underscore loop ?> 
             </div>
         </div>

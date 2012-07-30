@@ -17,24 +17,24 @@ if (isset($_GET['page'])){
     $page = 1;
 }
 
-#use this to set the next page number at the bottom page link
+# use this to set the next page number at the bottom page link
 $next_page = $page + 1;
 
 # create an arena connection and call for the posts
-$api = new ArenaAPi();
+$arena = new ArenaAPi();
 
-#make a call to the arena api to get the data
-$blog = $api->get_channel('paperweight-publishers');
+# make a call to the arena api to get the data
+$channel = $arena->get_channel('paperweight-publishers');
+$nav_channels - $arena->get_channel_channels($channel);
 
-#use filtering method to separate out blog metadata
-$blog_meta = $api->filter_channel_meta($blog);
+# seperate the blocks from the channel
+$channel_blocks = $arena->get_channel_blocks($channel);
 
-#use filtering method to separate out blog content
-$blog_content= $api->filter_channel_content($blog);
+# use filtering method to separate out blog metadata
+$blog_meta = $arena->get_channel_meta($channel);
 
-# separate the blocks and sort them by updated date
-# ideally, sorting like this would be done by the api
-$contents = __::sortBy($blog['blocks'], function($block) { return -$block['readable_updated_at']; });
+# get sorted blocks to use as content
+$blog_content = $arena->sort_blocks_by_created($channel_blocks);
 
 ?>
 
