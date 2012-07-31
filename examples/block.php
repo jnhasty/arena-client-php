@@ -12,58 +12,123 @@ if (isset($_GET['block'])){
 
 # create a new arena connection object 
 # and get the specified block
-$api = new ArenaAPi();
-$block = $api->get_block_by_id($block_id);
+$arena = new ArenaAPi();
+$block = $arena->get_block($block_id);
 
 # what content type is the block
-$block_type = key($block);
+$block_class = $arena->get_block_class($block);
+$connections = $arena->get_connections_for_block($block);
 
-#separate block data into own array
-$block_info = $block[$block_type];
-
-//pretty_print_array($block_info);
 ?>
 
-<html>
-    <head>
-        <title><?php echo($block[$block_type]['title']); ?>: An Arena Block</title>
-        <meta charset='utf-8' />
-        <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-        <link href="example.css" media="screen" rel="stylesheet" type="text/css" />
-    </head>
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <body>
-        <div class="block" style="margin: 15px;"> 
-            <h2 class="block-title">
-                <a href="<?php echo($block_info['source_url']); ?>"><?php echo($block[$block_type]['title']); ?>: A Arena Block</a>
-            </h2>
-            <div class="block-meta">By <?php echo($block_info['username']); ?> on <?php echo($block_info['readable_updated_at']); ?></div>
-            <div class="block-content">
-            
-                <?php if ($block_info['image_display']){ ?>
-                    <img class = "block-display-image" src="<?php echo($block_info['image_display']); ?>" />
-                <?php } ?>
+    <!-- doc title set in js -->
+    <title><?php echo($main_channel['user']['username']); ?></title>
 
-                <?php if ($block_info['description']){ ?>
-                    <div class="block-description"><?php echo($block_info['description']); ?>" </div>
-                <?php } ?>
+    <!-- set client description in content here-->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link href="examples.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
 
-            </div>
+<body>
+    <div class="wrapper">
 
-            <?php if (!empty($block_info['connections'])) { ?>
-                <div id="block-connections">
-                <h2>Connections</h2>
-                <?php __::each($block_info['connections'], function($connection) { ?>
-                <div class="connection">
-                    This <?php echo($connection['connectable_type']);?> is part of the channel 
-                        <a target="_blank" href="http://are.na/#<?php echo($connection['channel']['slug']); ?>">
-                            <?php echo($connection['channel']['title']); ?>
-                        </a>
-                </div>
-               <?php }); ?>
-                </div>
-            <?php } ?>                
-        </div>  
-    </body>
+        <div id="blocks">	
+                <div id="block">
+                    <div id='block-title'></div>            
+                    
+                    <?php if ($block_class == 'image'){ ?>
+                        <div class="entry image">		
+                            <div class="entry-title" >
+                                <h2> <?php echo($block['title']) ?> </h2>
+                            </div>	
+                            <div class="entry-content">
+                                <a href="<?php echo($block['image_original']) ?>">
+                                    <img src="<?php echo($block['image_display']) ?>">
+                                </a>
+                            </div>
+                            <div class="entry-description">
+                                <?php echo($block['description']) ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                
+                    <?php if ($block_class == 'media'){ ?>
+                        <div class="entry media">		
+                            <div class="entry-title">
+                                <h2> <?php echo($block['title']) ?> </h2>
+                            </div>	
+                            <div class="entry-content">
+                                <?php echo($block['embed_html']) ?>
+                            </div>
+                            <div class="entry-description">
+                                <?php echo($block['description']) ?>
+                            </div>
+                        </div>	
+                    <?php } ?>
+                
+                    <?php if ($block_class == 'link'){ ?>
+                        <div class="entry link">		
+                            <div class="entry-title">
+                                <h2> <?php echo($block['title']) ?> </h2>
+                            </div>	
+                            <div class="entry-content">
+                                <a href="<?php echo($block['source_url']) ?>">
+                                    <img src="<?php echo($block['image_display']) ?>">
+                                </a>
+                                <br />
+                                <a href="<?php echo($block['source_url']) ?>">
+                                    <?php echo($block['source_url']) ?>
+                                </a>
+                            </div>
+                            <div class="entry-description">
+                                <?php echo($block['description']) ?>
+                            </div>
+                        </div>	
+                    <?php } ?>
+                
+                    <?php if ($block_class == 'text'){ ?>
+                        <div class="entry text" >		
+                            <div class="entry-title">
+                                <h2> <?php echo($block['title']) ?> </h2>
+                            </div>	
+                            <div class="entry-content">
+                                <p><?php echo($block['content']) ?></p>
+                            </div>
+                            <div class="entry-description">
+                                <?php echo($block['description']) ?>
+                            </div>
+                        </div>
+                    <?php } ?>
 
+                </div>	
+        </div>            
+    	
+        <div id="connections">
+            <h2>Connections</h2>
+            <ul>
+            <?php if(isset($connections)){
+                 __::each($connections, function($connection) { ?>
+                <li class="connection" >		
+                    <a target="_blank" href="http://are.na/#/<?php echo($connection['channel']['slug']) ?>" id="connection-box"><?php echo($connection['channel']['title']) ?></a>
+                </li>
+                <?php });
+            } ?>
+            </ul>
+    	</div>
+
+
+    </div><!-- end wrapper div-->
+
+</body>
+    
 </html>

@@ -8,8 +8,7 @@
  *
  * TODO 
  * + get person who connected the block
- * + templates for list view etc
- * + channels within channels example
+ * + finish blog example with pagination
  * + example to find blocks position and neighbors within channel
  */ 
 
@@ -95,8 +94,10 @@ class ArenaAPI {
         return $this->make_request($this->arena_api_url.'channels?user='.$user);
     }
 
-    function get_block($block_id){
+    function get_block($block_identifier){
         /* 
+         * takes an id or slug
+         *
          * returns a block dict:
          *    provider_url,image_file_size, embed_source_url, updated_at, 
          * 
@@ -112,13 +113,12 @@ class ArenaAPI {
          * optional params are:
          *   depth: Defaults to public. Passing extended returns the available connections on a block
          */ 
-        $call_url = $this->arena_api_url . 'blocks/' . $block_id;
+        $call_url = $this->arena_api_url . 'blocks/' . $block_identifier;
         if ($this->extended_depth == True){
              $call_url = $call_url . '?depth=extended';
         }
         return $this->make_request($call_url);
     }
-
     
     #######
     ## SORTING & ITEM RETRIEVAL FUNCTIONS
@@ -257,12 +257,15 @@ class ArenaAPI {
     }
 
     function get_connections_for_block($block_array){
-        return $block['connections'];
+        return $block_array['connections'];
+    }
+
+    function get_block_class($block_array){
+        return $block_array['block_class'];
     }
 
 
 } # END ARENA API CLASS 
-
 
 
 # debug stuff
