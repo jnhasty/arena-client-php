@@ -1,18 +1,4 @@
 <?php include('../arena.php');
-# set the post limit
-# Null returns all posts
-$per = 3;
-
-#pagination
-if (isset($_GET['page'])){
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-# use this to set the next page number at the bottom page link
-$next_page = $page + 1;
-
 # create an arena connection and call for the posts
 $arena = new ArenaAPi();
 
@@ -54,7 +40,7 @@ $sorted_blocks = $arena->sort_blocks_by_created($content_blocks);
     <!-- set client description in content here-->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link href="example.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="examples.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
