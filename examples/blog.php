@@ -24,8 +24,7 @@ $next_page = $page + 1;
 $arena = new ArenaAPi();
 
 # make a call to the arena api to get the data
-$channel = $arena->get_channel('paperweight-publishers');
-$nav_channels - $arena->get_channel_channels($channel);
+$channel = $arena->get_channel('arena-influences');
 
 # seperate the blocks from the channel
 $channel_blocks = $arena->get_channel_blocks($channel);
@@ -44,7 +43,7 @@ $blog_content = $arena->sort_blocks_by_created($channel_blocks);
         <title><?php echo ($blog_meta['title']); ?>: A Blog</title>
         <meta charset='utf-8' />
         <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-        <link href="example.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="examples.css" media="screen" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
