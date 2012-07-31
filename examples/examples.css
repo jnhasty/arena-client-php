@@ -4,7 +4,8 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
-  text-decoration: none; }
+  text-decoration: none; 
+}
 
 body {
   font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -12,7 +13,8 @@ body {
   font-size: 14px;
   line-height: 21px;
   background-color: #0f0d0d;
-  text-shadow: black 0px 0px 1px; }
+  text-shadow: black 0px 0px 1px; 
+}
 
 h1 {
   font-size: 15px;
@@ -24,19 +26,21 @@ h1 {
   float: left;
   border-bottom: 2px solid #b5b5b5;
   background-color: #171719;
-  color: #efefef; }
+  color: #efefef; 
+}
 
 h2 {
   color: #d3d3d3;
   font-size: 14px;
-  font-weight: bold; }
+  font-weight: bold; 
+}
 
 h3 {
   color: #545454;
   font-size: 13px;
   line-height: 50px;
   font-weight: bold;
-  background-color: #0f0d0d; }
+}
 
 img {
   max-width: 80%;
@@ -49,15 +53,19 @@ ul {
 }
 
 li {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px; }
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px; 
+    line-height:1;
+    margin: 11px 0px;
+}
 
 a {
   color: #cb745d;
   text-decoration: none;
   font-size: 12px;
-  font-weight: bold; }
+  font-weight: bold; 
+}
 
 p {
   margin: 5px 0px;
