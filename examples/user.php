@@ -45,16 +45,14 @@ $sorted_blocks = $arena->sort_blocks_by_created($content_blocks);
 
 <body>
     <div class="wrapper">
-
-        <div id="nav" class="scroll-pane">		
-            <div id="nav-header">
-                <a href="/"><?php echo($profile_channel['user']['username']); ?></a>
-            </div>
+        <div id="page-title">
+            <a href="/"><?php echo($profile_channel['user']['username']); ?></a>
+        </div>
+        <div id="nav" >		
+            <div class='nav-title'>channels</div>
             <div id="navigation">
                 <ul>
                 <?php __::each($nav_channels, function($channel) { ?>
-                    <?php// pretty_print_array($channel); ?>
-
                     <li>
                         <a href="?channel=<?php echo($channel['slug']); ?>" class="results"><?php echo($channel['title']); ?></a>
                     </li>
@@ -135,18 +133,21 @@ $sorted_blocks = $arena->sort_blocks_by_created($content_blocks);
                 </div>	
             <?php }); ?>
         </div>            
-    	
+
+        <?php if(!empty($connections)){ ?>
         <div id="connections">
+            <div class='nav-title'>connections</div>            
             <ul>
-            <?php if(isset($connections)){
-                 __::each($connections, function($connection) { ?>
+                <?php  __::each($connections, function($connection) { ?>
                 <li class="connection" >		
-                    <a target="_blank" href="http://are.na/#/<?php echo($connection['channel']['slug']) ?>" id="connection-box"><?php echo($connection['channel']['title']) ?></a>
+                    <a target="_blank" href="http://are.na/#/<?php echo($connection['channel']['slug']) ?>" id="connection-box">
+                        <?php echo($connection['channel']['title']) ?>
+                    </a>
                 </li>
-                <?php });
-            } ?>
+                <?php }); ?>
             </ul>
     	</div>
+        <?php } ?>
 
 
     </div><!-- end wrapper div-->

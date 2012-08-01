@@ -47,38 +47,78 @@ $blog_content = $arena->sort_blocks_by_created($channel_blocks);
     </head>
 
     <body>
-        <div id="channel">
-            <h1 id="channel-title">
+        <div id="blog">
+            <div id="blog-title">
                 <a href = "blog.php">
-                    <?php echo ($blog_meta['title']); ?>: A Blog
+                    <?php echo ($blog_meta['title']); ?>
                 </a>
-            </h1>
-            <div id="channel-blocks">
+            </div>
+            <div id="blog-content">
                 <?php __::each($blog_content, function($content) { ?>
-                    
-
-                    <div class="block" style="margin: 15px 10px;"> 
-                        <h2 class="block-title">
+                    <div class="blog-post"> 
+                        <div class="blog-post-title">
                             <a href="<?php echo($content['source_url']); ?>"><?php echo($content['title']); ?></a>
-                        </h2>
-                        <div class="block-meta">By <?php echo($content['username']); ?> on <?php echo($content['readable_updated_at']); ?></div>
-                        <div class="block-content">
-                            <?php if ($content['image_display']){ ?>
-                                <img class = "block-display-image" src="<?php echo($content['image_display']); ?>" />
-                            <?php } ?>
-
-                            <?php if ($content['description']){ ?>
-                                <div class="block-description"><?php echo($content['description']); ?>" </div>
-                            <?php } ?>
                         </div>
+
+                        <div class="blog-post-meta">
+                            By <?php echo($content['username']); ?> on <?php echo($content['readable_updated_at']); ?>
+                        </div>
+
+                        <div class="blog-post-content">
+                            
+                            <?php if ($content['block_class'] == 'image'){ ?>
+                            <div class="blog-post-entry-content">
+                                <a href="<?php echo($content['image_original']) ?>">
+                                    <img src="<?php echo($content['image_display']) ?>" />
+                                </a>
+                            </div>
+                            <div class="blog-post-description">
+                                <?php echo($content['description']); ?>
+                            </div>
+                            <?php } ?>
+                
+                            <?php if ($content['block_class'] == 'media'){ ?>
+                                <div class="blog-post-entry-content">
+                                    <?php echo($content['embed_html']) ?>
+                                </div>
+                                <div class="blog-post-description">
+                                    <?php echo($content['description']); ?>
+                                </div>
+                            <?php } ?>
+                
+                            <?php if ($content['block_class'] == 'link'){ ?>
+                                <div class="blog-post-entry-content">
+                                    <a href="<?php echo($content['source_url']) ?>">
+                                        <img src="<?php echo($content['image_display']) ?>">
+                                    </a>
+                                    <br />
+                                    <a href="<?php echo($content['source_url']) ?>">
+                                        <?php echo($content['source_url']) ?>
+                                    </a>
+                                </div>
+                                <div class="blog-post-description">
+                                    <?php echo($content['description']); ?>
+                                </div>	
+                            <?php } ?>
+                
+                            <?php if ($content['block_class'] == 'text'){ ?>
+                                <div class="blog-post-entry-content">
+                                    <p><?php echo($content['content']) ?></p>
+                                </div>
+                                <div class="blog-post-description">
+                                    <?php echo($content['description']); ?>
+                                </div>
+                            <?php } ?>
+                        
+                        </div>	
                     
                         <?php if (!empty($content['connections'])) { ?>
-                            <div id="block-connections">
+                            <div class="blog-post-connections">
                             <?php __::each($content['connections'], function($connection) { 
                             global $content; //bring content var into this function's scope 
                             ?>
                             <div class="connection">
-                                This <?php echo($connection['connectable_type']);?> is also featured in: 
+                                + This <?php echo($connection['connectable_type']);?> is also featured in: 
                                     <?php if( $connection['channel']['title'] != $content['channel']['title'] ) { ?>
                                         <a target="_blank" href="http://are.na/#<?php echo($connection['channel']['slug']); ?>">
                                             <?php echo($connection['channel']['title']); ?>
@@ -92,14 +132,14 @@ $blog_content = $arena->sort_blocks_by_created($channel_blocks);
         <?php }); ?>
         </div>
 
-        </div>
+        <!--
         <div id="blog-navigation">
             <?php if (isset($next_page)){ ?>
                 <a href = "?page=<?php echo($next_page) ?>">Next >></a>
             <?php } else { ?>
                 <a href = "blog.php">Home</a>
             <?php } ?>
-
-
+        </div>
+        -->
     </body>
 </html>
