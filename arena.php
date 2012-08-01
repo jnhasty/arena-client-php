@@ -206,11 +206,10 @@ class ArenaAPI {
                     array_push($connections, $block['connections']);
                 }
             }
-            $connections = __::flatten($connections, true);
+            $flattened = __::flatten($connections, true);
             $uniques = array();
-            foreach($connections as $connection){
-                
-                if($connection['channel']['id'] != $channel_array['id']){
+            foreach($flattened as $connection){
+                if($connection['channel_id'] != $channel_array['id']){
                     $uniques[$connection['channel']['id']] = $connection;
                 }
             }
@@ -227,8 +226,16 @@ class ArenaAPI {
     #
     # BLOCK FUNCTIONS
     #
-    function sort_blocks_by_created($blocks_array){
-        return __::sortBy($blocks_array, function($block) { return -$block['created_at']; });
+    function sort_blocks_by_created($blocks_array, $sort_by ='desc'){
+        if($sort_by == 'asc'){
+            return __::sortBy($blocks_array, function($block) { return $block['created_at']; });
+        }
+        $dates = array();
+        foreach ($blocks_array as $key => $row) {
+            $dates[$key]  = $row['created_at']; 
+        }
+        array_multisort($dates, SORT_DESC, $blocks_array);
+        return $blocks_array;
     }
     
     function get_image_blocks($blocks_array){
