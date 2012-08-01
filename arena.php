@@ -83,15 +83,22 @@ class ArenaAPI {
         return $this->make_request($call_url);
     }
 
-    function get_user_channel($user){
+    function get_user_channel($user,$page = Null, $per = Null){
         /*
         * returns an array: blocks, page, per, user
         *
         * optional params are:
         *    page: Specifies the page of results to retrieve.
         *    per: Specifies the number of channels to retrieve.
-        */      
-        return $this->make_request($this->arena_api_url.'channels?user='.$user);
+         */   
+        $call_url = $this->arena_api_url.'channels?user='.$user;
+        if(isset($per)){
+            $call_url = $call_url . '&per=' . $per;
+        }
+        if(isset($page)){
+            $call_url = $call_url . '&page=' . $page;            
+        }
+        return $this->make_request($call_url);
     }
 
     function get_block($block_identifier){
